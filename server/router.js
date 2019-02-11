@@ -4,7 +4,6 @@ const router = new Router({
 })
 
 const testController = require('./controller/test-controller')
-console.log(testController)
 const adminController = require('./controller/admin')
 const allController = Object.assign(testController,adminController)
 console.log(allController)

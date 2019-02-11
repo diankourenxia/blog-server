@@ -23,9 +23,9 @@ const login = async (ctx, next) => {
           data => {
             result = {success: data?true:false, message: data?'登入成功':'密码错误'}
             res()
-          }, err => {
+          }, error => {
             result= {success: false, message: '登录失败'}
-            rej()
+            rej(error)
           }
         )
       }
@@ -33,6 +33,8 @@ const login = async (ctx, next) => {
   }).then(data=>{
     ctx.body=result;
     next()
+  },err=>{
+    console.log(err)
   })
 
 };
@@ -53,7 +55,7 @@ const register = async (ctx, next) => {
     newUser.save(function (err, res) {
       if (err) {
         result = {success: false, message: '注册失败'}
-        rej()
+        rej(err)
       }
       else {
         result = {success: true, message: '注册成功'}
@@ -63,6 +65,8 @@ const register = async (ctx, next) => {
   }).then(data=>{
     ctx.body = result
     next()
+  },error=>{
+    console.log(error)
   })
 }
 module.exports = {
