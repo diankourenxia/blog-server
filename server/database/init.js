@@ -3,11 +3,15 @@ const mongoose = require('mongoose'),
 const glob = require('glob')
 const {resolve} = require('path')
 mongoose.Promise = global.Promise
+const env = process.env.NODE_ENV || 'dev'
+if(env === 'dev'){
+  console.log('the env is dev')
+}
 exports.initSchemas = ()=>{
   glob.sync(resolve(__dirname,'models','**/*js')).forEach(require)
 }
 exports.connect = ()=>{
-  mongoose.connect(DB_URL);
+  mongoose.connect(DB_URL,{ useNewUrlParser: true });
   mongoose.connection.on('connected', function () {
     console.log('Mongoose connection open to ' + DB_URL);
   });
@@ -19,4 +23,4 @@ exports.connect = ()=>{
   });
 }
 
-exports. mongoose;
+exports.mongoose;

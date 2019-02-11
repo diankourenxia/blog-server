@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # mongoose init
-/server/database/init.js
+#/server/database/init.js
