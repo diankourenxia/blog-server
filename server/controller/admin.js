@@ -2,7 +2,6 @@ var userModel = require('../database/models/user');
 
 const login = async (ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', '*')
-  ctx.response.type = 'application/json';
   let result = {
     success: false,
     message: '用户不存在'
@@ -39,8 +38,6 @@ const login = async (ctx, next) => {
 };
 const register = async (ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', '*')
-  ctx.response.type = 'application/json';
-
   let result = {
     success: false,
     message: '注册失败'

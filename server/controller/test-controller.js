@@ -25,7 +25,7 @@ const getOneByUsername = async (ctx, next) => {
   ctx.status = 200;
 }
 const add = async (ctx, next) => {
-  const user1 = new userModel({'username': 'ussdf1', 'email': '234234','loginAttempts':1})
+  const user1 = new userModel({'username': 'admin','password':'123456', 'email': '447536716@qq.com','loginAttempts':1})
   await user1.save((err, data) => {
     if (err) console.log(err)
   })
