@@ -22,7 +22,7 @@ const login = async (ctx, next) => {
         //判断密码是否正确
         user.comparePassword(password,user.password).then(
           data => {
-            result = {success: true, message: data?'登入成功':'密码错误'}
+            result = {success: data?true:false, message: data?'登入成功':'密码错误'}
             res()
           }, err => {
             result= {success: false, message: '登录失败'}
