@@ -1,0 +1,27 @@
+{
+  "apps": [{
+    "name": "blog-serve",
+    "script": "server/index.js",
+    "env": {
+      "COMMON_VARIABLE": "true"
+    },
+    "env_production": {
+      "NODE_ENV": "production"
+    }
+  }],
+  "deploy": {
+    "production": {
+      "user": "hugh",
+      "host": ["116.62.193.12"],
+      "port": "2333",
+      "ref": "origin/master",
+      "repo": "git@github.com:diankourenxia/blog-server.git",
+      "path": "/D/blog-server/blog-server",
+      "ssh_options": "StrictHostKeyChecking=no",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "post-deploy": "npm install&&pm2 startOrRestart ecosystem.json --env production"
+    }
+  }
+}

@@ -3,8 +3,9 @@ const router = new Router({
   prefix: '/api', // 统一前缀，接口全部为 /api/xxx 格式
 })
 
-const testController = require('./controller/test-controller')
+const testController = require('./controller/test')
 const adminController = require('./controller/admin')
+const articleController = require('./controller/article')
 const allController = Object.assign(testController,adminController)
 console.log(allController)
 Object.keys(allController).forEach(key=>{

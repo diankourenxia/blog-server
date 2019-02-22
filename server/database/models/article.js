@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const articleSchema = new mongoose.Schema({
   title:String,
   content:String,
-  owner:String,
+  author:String,
   createTime:{
     type:Date,
     default:Date.now()
@@ -11,7 +11,9 @@ const articleSchema = new mongoose.Schema({
     type:Date,
     default:Date.now()
   },
-  type:[String]
+  tags:[String],
+  categories:[String],
+  desc:String
 })
 articleSchema.pre('save',function (next){
   if(this.isNew){
