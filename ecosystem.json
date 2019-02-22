@@ -16,7 +16,7 @@
       "port": "2333",
       "ref": "origin/master",
       "repo": "git@github.com:diankourenxia/blog-server.git",
-      "path": "/D/blog-server/blog-server",
+      "path": "D/blog-server/blog-server",
       "ssh_options": "StrictHostKeyChecking=no",
       "env": {
         "NODE_ENV": "production"
