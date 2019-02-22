@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 const articleSchema = new mongoose.Schema({
-  title:String,
+  title:{
+    unique: true,
+    type: String,
+    required: true
+  },
   content:String,
   author:String,
   createTime:{

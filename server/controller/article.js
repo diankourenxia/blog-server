@@ -59,7 +59,32 @@ const list =async (ctx,next)=> {
     next()
   })
 }
+const get =async (ctx,next)=> {
+  let result ={
+    success:false,
+    message:'获取失败'
+  }
+  const {title} = ctx.request.query
+  await new Promise((res,rej)=>{
+    articleModel.find({'title':title},(err,val)=>{
+      if(err)rej(err)
+      result ={
+        success:true,
+        data:val || {}
+      }
+      res()
+    })
+  }).then(data=>{
+    ctx.body = result;
+    next()
+  },err=>{
+    result.message = err;
+    ctx.body=result;
+    next()
+  })
+}
 module.exports ={
   'article/list':list,
-  'article/add':add
+  'article/add':add,
+  'article/get':get
 }
