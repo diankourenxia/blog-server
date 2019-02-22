@@ -5,7 +5,7 @@ const add = async (ctx, next) => {
     message: '保存失败'
   }
   const {
-    title, author, tags,
+    title, author, tags,categories,
     content,
     describe
   } = ctx.request.body;
@@ -14,12 +14,25 @@ const add = async (ctx, next) => {
     author,
     tags,
     content,
-    describe
+    describe,
+    categories
   })
   await new Promise((res,rej)=>{
-
+    newArticle.save(function(err,resp){
+      if(err){
+        result = {success: false, message: '保存失败'}
+        rej(err)
+      }
+      else{
+        result = {success: true, message: '保存成功'}
+        res()
+      }
+    })
   }).then(d=>{
+    ctx.body = result
     next()
+  },error=>{
+    console.log(error)
   }
  )
 }

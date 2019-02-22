@@ -51,7 +51,7 @@ const register = async (ctx, next) => {
     password,
     email
   });
-  await new Promise((resole,rej)=>{
+  await new Promise((resolve,rej)=>{
     newUser.save(function (err, res) {
       if (err) {
         result = {success: false, message: '注册失败'}
@@ -59,7 +59,7 @@ const register = async (ctx, next) => {
       }
       else {
         result = {success: true, message: '注册成功'}
-        resole()
+        resolve()
       }
     })
   }).then(data=>{
