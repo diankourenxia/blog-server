@@ -21,6 +21,17 @@ const login = async (ctx, next) => {
         //判断密码是否正确
         user.comparePassword(password,user.password).then(
           data => {
+            //写入cookie
+            // console.log(ctx)
+            ctx.cookies.set(
+              'username',user.username,{
+                domain:'localhost', // 写cookie所在的域名
+                path:'/',       // 写cookie所在的路径
+                maxAge: 2*60*60*1000,   // cookie有效时长
+                httpOnly:false,  // 是否只用于http请求中获取
+                overwrite:false  // 是否允许重写
+              }
+            );
             result = {success: data?true:false, message: data?'登入成功':'密码错误'}
             res()
           }, error => {

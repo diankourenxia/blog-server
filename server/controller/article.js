@@ -1,8 +1,16 @@
 const articleModel = require('../database/models/article')
 const add = async (ctx, next) => {
+
   let result = {
     success: false,
     message: '保存失败'
+  }
+  console.log(ctx.cookies.get('username'))
+  if(!ctx.cookies.get('username')){
+    result.message = '请登录'
+    ctx.body = result
+    next()
+    return
   }
   const {
     title, author, tags,categories,
