@@ -23,9 +23,10 @@ const login = async (ctx, next) => {
           data => {
             //写入cookie
             // console.log(ctx)
+            console.log()
             ctx.cookies.set(
               'username',user.username,{
-                domain:'localhost', // 写cookie所在的域名
+                domain:ctx.request.host.split('.')[0], // 写cookie所在的域名
                 path:'/',       // 写cookie所在的路径
                 maxAge: 2*60*60*1000,   // cookie有效时长
                 httpOnly:false,  // 是否只用于http请求中获取
