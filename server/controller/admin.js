@@ -22,11 +22,11 @@ const login = async (ctx, next) => {
         user.comparePassword(password,user.password).then(
           data => {
             //写入cookie
-            // console.log(ctx)
+            console.log(ctx)
             console.log()
             ctx.cookies.set(
               'username',user.username,{
-                domain:'nghugh.com', // 写cookie所在的域名
+                domain:ctx.request.header.host.indexOf('localhost')!==-1?'localhost':'nghugh.com', // 写cookie所在的域名
                 path:'/',       // 写cookie所在的路径
                 maxAge: 2*60*60*1000,   // cookie有效时长
                 httpOnly:false,  // 是否只用于http请求中获取
