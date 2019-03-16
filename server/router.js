@@ -6,7 +6,8 @@ const router = new Router({
 const testController = require('./controller/test')
 const adminController = require('./controller/admin')
 const articleController = require('./controller/article')
-const allController = Object.assign(testController,adminController,articleController)
+const flashController = require('./controller/flash')
+const allController = Object.assign(testController,adminController,articleController,flashController)
 console.log(allController)
 Object.keys(allController).forEach(key=>{
   router.all("/"+key, allController[key]);   // router.all是允许所有的访问方式，如果需要限定则改为指定方式即可

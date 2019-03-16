@@ -1,4 +1,4 @@
-const articleModel = require('../database/models/article')
+const flashModel = require('../database/models/flash')
 const add = async (ctx, next) => {
   let result = {
     success: false,
@@ -10,20 +10,21 @@ const add = async (ctx, next) => {
     next()
     return
   }
+  const author = ctx.cookies.get('username')
   const {
-    title, tags,categories,
     content,
-    describe
+    type,
+    status
   } = ctx.request.body;
-  const newArticle = new articleModel({
-    title,
-    tags,
+
+  const newFlash = new flashModel({
+    author,
+    type,
     content,
-    describe,
-    categories
+    status
   })
   await new Promise((res,rej)=>{
-    newArticle.save(function(err,resp){
+    newFlash.save(function(err,resp){
       if(err){
         result = {success: false, message: '保存失败'}
         rej(err)
@@ -37,7 +38,7 @@ const add = async (ctx, next) => {
     ctx.body = result
     next()
   },error=>{
-    rej(error)
+    return Promise.reject(error)
   }
  )
 }
@@ -46,9 +47,11 @@ const list =async (ctx,next)=> {
     success:false,
     message:'获取失败'
   }
+  const {type} =ctx.request.body;
   await new Promise((res,rej)=>{
-    articleModel.find({},(err,val)=>{
+    flashModel.find({type:type},(err,val)=>{
       if(err)rej(err)
+      console.log(val)
       result ={
         success:true,
         data:val || []
@@ -69,9 +72,9 @@ const get =async (ctx,next)=> {
     success:false,
     message:'获取失败'
   }
-  const {title} = ctx.request.query
+  const {_id} = ctx.request.query
   await new Promise((res,rej)=>{
-    articleModel.find({'title':title},(err,val)=>{
+    flashModel.find({'_id':id},(err,val)=>{
       if(err)rej(err)
       result ={
         success:true,
@@ -100,14 +103,13 @@ const update = async (ctx, next) => {
     return
   }
   const {_id,
-    title, author, tags,categories,
+    type, author,
     content,
-    describe
+    status
   } = ctx.request.body;
   await new Promise((res,rej)=>{
-    articleModel.update({_id:_id},{ title, author, tags,categories,
-      content,
-      describe},function(err,resp){
+    flashModel.update({_id:_id},{ author, type,status,
+      content},function(err,resp){
       if(err){
         result = {success: false, message: '保存失败'}
         rej(err)
@@ -126,8 +128,8 @@ const update = async (ctx, next) => {
   )
 }
 module.exports ={
-  'article/list':list,
-  'article/add':add,
-  'article/get':get,
-  'article/update':update
+  'flash/list':list,
+  'flash/add':add,
+  'flash/get':get,
+  'flash/update':update
 }
