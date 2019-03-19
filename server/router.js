@@ -3,14 +3,14 @@ const router = new Router({
   prefix: '/api', // 统一前缀，接口全部为 /api/xxx 格式
 })
 
-const testController = require('./controller/test')
+// const testController = require('./controller/test')
 const adminController = require('./controller/admin')
 const articleController = require('./controller/article')
 const flashController = require('./controller/flash')
-const allController = Object.assign(testController,adminController,articleController,flashController)
-console.log(allController)
+const allController = Object.assign(adminController,articleController,flashController)
 Object.keys(allController).forEach(key=>{
-  router.all("/"+key, allController[key]);   // router.all是允许所有的访问方式，如果需要限定则改为指定方式即可
+  console.log(allController[key])
+  router.all("/"+key,...allController[key])// router.all是允许所有的访问方式，如果需要限定则改为指定方式即可
 })
 
 module.exports = router;

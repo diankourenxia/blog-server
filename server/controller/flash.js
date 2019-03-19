@@ -128,8 +128,8 @@ const update = async (ctx, next) => {
   )
 }
 module.exports ={
-  'flash/list':list,
-  'flash/add':add,
-  'flash/get':get,
-  'flash/update':update
+  'flash/list':[list],
+  'flash/add':[add],
+  'flash/get':[get],
+  'flash/update':[update]
 }

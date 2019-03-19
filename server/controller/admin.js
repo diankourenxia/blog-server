@@ -82,6 +82,6 @@ const register = async (ctx, next) => {
   })
 }
 module.exports = {
-  'admin/login': login,
-  'admin/register': register,
+  'admin/login': [login],
+  'admin/register': [register],
 }

@@ -1,4 +1,21 @@
 const articleModel = require('../database/models/article')
+const isLogin = require('./utils')
+const deletePro = (request)=>{
+  return new Promise((res,rej)=>{
+    articleModel.remove(request,(err,resp)=>{
+      if(err)rej(err)
+      else res(resp)
+    })
+  })
+}
+const deleteByTitle = async (ctx,next)=>{
+  try {
+    const {title} =ctx.request.body;
+    await deletePro({title})
+  }catch(err){
+    console.log(err)
+  }
+}
 const add = async (ctx, next) => {
   let result = {
     success: false,
@@ -37,7 +54,6 @@ const add = async (ctx, next) => {
     ctx.body = result
     next()
   },error=>{
-    rej(error)
   }
  )
 }
@@ -61,7 +77,6 @@ const list =async (ctx,next)=> {
   },err=>{
     result.message = err;
     ctx.body=result;
-    next()
   })
 }
 const get =async (ctx,next)=> {
@@ -85,7 +100,6 @@ const get =async (ctx,next)=> {
   },err=>{
     result.message = err;
     ctx.body=result;
-    next()
   })
 }
 const update = async (ctx, next) => {
@@ -121,13 +135,15 @@ const update = async (ctx, next) => {
       ctx.body = result
       next()
     },error=>{
-      rej(error)
+
     }
+
   )
 }
 module.exports ={
-  'article/list':list,
-  'article/add':add,
-  'article/get':get,
-  'article/update':update
+  'article/list':[list],
+  'article/add':[add,isLogin],
+  'article/get':[get],
+  'article/update':[add,isLogin],
+  'article/delete':[deleteByTitle,isLogin],
 }
