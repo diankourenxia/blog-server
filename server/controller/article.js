@@ -21,12 +21,6 @@ const add = async (ctx, next) => {
     success: false,
     message: '保存失败'
   }
-  if(!ctx.cookies.get('username')){
-    result.message = '请登录'
-    ctx.body = result
-    next()
-    return
-  }
   const {
     title, tags,categories,
     content,
@@ -106,12 +100,6 @@ const update = async (ctx, next) => {
   let result = {
     success: false,
     message: '保存失败'
-  }
-  if(!ctx.cookies.get('username')){
-    result.message = '请登录'
-    ctx.body = result
-    next()
-    return
   }
   const {_id,
     title, author, tags,categories,
