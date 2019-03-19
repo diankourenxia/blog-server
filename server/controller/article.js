@@ -132,6 +132,6 @@ module.exports ={
   'article/list':[list],
   'article/add':[add,isLogin],
   'article/get':[get],
-  'article/update':[add,isLogin],
+  'article/update':[update,isLogin],
   'article/delete':[deleteByTitle,isLogin],
 }
