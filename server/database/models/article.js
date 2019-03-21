@@ -23,6 +23,8 @@ articleSchema.pre('save',function (next){
   if(this.isNew){
     this.createTime = this.updateTime =Date.now()
   }else{
+    this.categories = []
+    this.tags = []
     this.updateTime = Date.now()
   }
   next()

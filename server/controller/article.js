@@ -24,13 +24,13 @@ const add = async (ctx, next) => {
   const {
     title, tags,categories,
     content,
-    describe
+    desc
   } = ctx.request.body;
   const newArticle = new articleModel({
     title,
     tags,
     content,
-    describe,
+    desc,
     categories
   })
   await new Promise((res,rej)=>{
@@ -104,12 +104,12 @@ const update = async (ctx, next) => {
   const {_id,
     title, author, tags,categories,
     content,
-    describe
+    desc
   } = ctx.request.body;
   await new Promise((res,rej)=>{
     articleModel.update({_id:_id},{ title, author, tags,categories,
       content,
-      describe},function(err,resp){
+      desc},function(err,resp){
       if(err){
         result = {success: false, message: '保存失败'}
         rej(err)

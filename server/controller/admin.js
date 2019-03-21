@@ -44,7 +44,6 @@ const login = async (ctx, next) => {
     })
   }).then(data=>{
     ctx.body=result;
-    next()
   },err=>{
     console.log(err)
   })
@@ -76,7 +75,6 @@ const register = async (ctx, next) => {
     })
   }).then(data=>{
     ctx.body = result
-    next()
   },error=>{
     console.log(error)
   })
