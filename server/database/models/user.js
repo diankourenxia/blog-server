@@ -61,7 +61,6 @@ userSchema.pre('save', function (next) {
 })
 userSchema.methods = {
   comparePassword: (_password, password) => {
-    console.log(9)
     return new Promise((res, rej) => {
       bcrypt.compare(_password, password, (err, isMatch) => {
         if (err) rej(err)

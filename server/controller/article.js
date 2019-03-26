@@ -11,9 +11,11 @@ const deletePro = (request)=>{
 const deleteByTitle = async (ctx,next)=>{
   try {
     const {title} =ctx.request.body;
-    await deletePro({title})
+    let result = await deletePro({title})
+    console.log(result)
+    ctx.body = {success:true,message:'删除成功'}
   }catch(err){
-    console.log(err)
+    ctx.body = {success:false,message:err}
   }
 }
 const add = async (ctx, next) => {

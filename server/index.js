@@ -12,8 +12,6 @@ const bodyParser = require('koa-bodyparser');
 (async ()=>{
   await connect()
   await initSchemas()
-  const category = mongoose.model('Category')
-  // console.log(category.find({}))
 })()
 const handler = async (ctx, next) => {
   try {

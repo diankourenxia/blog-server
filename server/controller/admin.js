@@ -8,45 +8,40 @@ const login = async (ctx, next) => {
   };
   const {username, password} = ctx.request.body;
   //检查数据库中是否存在该用户名
-  await new Promise((res,rej)=>{
-    userModel.findOne({
+  console.log(2)
+  try{
+    let user = await  userModel.findOne({
       username
     }, (err, user) => {
-      if (err) {
-        throw err;
-      }
-      if (!user) {
-        res()
-      } else {
-        //判断密码是否正确
-        user.comparePassword(password,user.password).then(
-          data => {
-            //写入cookie
-            console.log(ctx)
-            console.log()
-            ctx.cookies.set(
-              'username',user.username,{
-                domain:ctx.request.header.host.indexOf('localhost')!==-1?'localhost':'nghugh.com', // 写cookie所在的域名
-                path:'/',       // 写cookie所在的路径
-                maxAge: 2*60*60*1000,   // cookie有效时长
-                httpOnly:false,  // 是否只用于http请求中获取
-                overwrite:false  // 是否允许重写
-              }
-            );
-            result = {success: data?true:false, message: data?'登入成功':'密码错误'}
-            res()
-          }, error => {
-            result= {success: false, message: '登录失败'}
-            rej(error)
-          }
-        )
-      }
+      if(err) throw err
+      else if (!user) return Promise.reject({message:'无用户'})
+      else return Promise.resolve(user)
     })
-  }).then(data=>{
-    ctx.body=result;
-  },err=>{
+      //判断密码是否正确
+    console.log(1)
+    let passwordResult = await  user.comparePassword(password,user.password)
+    console.log(passwordResult)
+    if(passwordResult){
+      ctx.cookies.set(
+        'username',user.username,{
+          domain:ctx.request.header.host.indexOf('localhost')!==-1?'localhost':'nghugh.com', // 写cookie所在的域名
+          path:'/',       // 写cookie所在的路径
+          maxAge: 2*60*60*1000,   // cookie有效时长
+          httpOnly:false,  // 是否只用于http请求中获取
+          overwrite:false  // 是否允许重写
+        }
+      )
+      result = {success: true, message: '登入成功'}
+
+    }else{
+      result ={success:false,message:'密码错误'}
+    }
+    ctx.body = result
+  }catch(err){
     console.log(err)
-  })
+    result= {success: false, message: '登录失败'}
+    ctx.body = result
+  }
 
 };
 const register = async (ctx, next) => {
