@@ -1,4 +1,5 @@
 const flashModel = require('../database/models/flash')
+
 const add = async (ctx, next) => {
   let result = {
     success: false,
@@ -47,9 +48,9 @@ const list =async (ctx,next)=> {
     success:false,
     message:'获取失败'
   }
-  const {type} =ctx.request.body;
+  const {type,status} =ctx.request.body;
   await new Promise((res,rej)=>{
-    flashModel.find({type:type},(err,val)=>{
+    flashModel.find({type,status},(err,val)=>{
       if(err)rej(err)
       console.log(val)
       result ={
