@@ -80,7 +80,7 @@ const get =async (ctx,next)=> {
     success:false,
     message:'获取失败'
   }
-  const {title} = ctx.request.query
+  const {title} = ctx.request.body
   await new Promise((res,rej)=>{
     articleModel.find({'title':title},(err,val)=>{
       if(err)rej(err)
