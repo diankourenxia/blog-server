@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 //加载配置
 const uploadConf = multer({ storage: storage });
 const upload = async (ctx, next) => {
+  console.log(ctx.req.file)
+  console.log(ctx.req)
   ctx.body = {
     filename: `http://img.nghugh.com/${ctx.req.file.filename}`//返回文件名
   }
