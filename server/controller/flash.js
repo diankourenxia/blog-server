@@ -50,7 +50,16 @@ const list =async (ctx,next)=> {
   }
   const {type,status} =ctx.request.body;
   await new Promise((res,rej)=>{
-    flashModel.find({type,status},(err,val)=>{
+
+      let param ={
+        status
+      }
+  if(type){
+    param ={
+      type,status
+    }
+  }
+    flashModel.find(param,(err,val)=>{
       if(err)rej(err)
       console.log(val)
       result ={
