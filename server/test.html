@@ -5,7 +5,8 @@
         xsi:schemaLocation="http://cloudprint.cainiao.com/print http://cloudprint-docs-resource.oss-cn-shanghai.aliyuncs.com/lpml_schema.xsd"
         xmlns:editor="http://cloudprint.cainiao.com/schema/editor"
         width="100" height="180"  splitable="true" >
-	
+		<header height="0" >
+		</header>
 		<%	
           var rplAddData = function(a, b) {
       try {
@@ -730,8 +731,8 @@
             </text>
         
 		</layout>
-    </layout>
-<layout id="1567648366443" editor:_for_="1567648366443" height="38.34" width="86.44" left="0" top="130" orientation="horizontal" style="overflow:visible;zIndex:1"><text editor:_printName_="姓名  性别 省 市  区" style="orientation:horizontal;fontFamily:宋体;fontSize:8;fontWeight:normal;align:left;valign:left;"><![CDATA[<%=_data.name%>  <%=_data.sex%>  <%=_data.color%>  <%=_data.province%>  <%=_data.city%>  ]]></text></layout>		<footer height="10" ><%if(_data.adsInfo && _data.adsInfo.bannerUrl && _data.adsInfo.bannerUrl != ''){%>
+		</layout>
+		<layout id="1567648366443" editor:_for_="1567648366443" height="38.34" width="86.44" left="0" top="130" orientation="horizontal" style="overflow:visible;zIndex:1"><text editor:_printName_="姓名 性别 省 市 区" style="orientation:horizontal;fontFamily:宋体;fontSize:8;fontWeight:normal;align:left;valign:left;"><![CDATA[<%=_data.name%> <%=_data.sex%> <%=_data.color%> <%=_data.province%> <%=_data.city%> ]]></text></layout><footer height="10" ><%if(_data.adsInfo && _data.adsInfo.bannerUrl && _data.adsInfo.bannerUrl != ''){%>
 <layout 
             editor:_for_="1558060158228235"
             
@@ -741,7 +742,6 @@
             editor:_for_="1558060180390942"
             
             id="1558060180394198" width="15" height="15" left="83" top="-7"  style="zIndex:2;"><barcode type="qrcode" ratioMode="keepRatio"       ><![CDATA[<%=_data.adsInfo.trackUrl%>]]></barcode>
-    </layout>
-    
+		</layout>
 		</footer>
 </page>
